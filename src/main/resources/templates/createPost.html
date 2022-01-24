@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- > js파일이 적용이 안되서 여기다가 적음 <-->
+    <script>function createPost(){
+        $.ajax({
+            type : "POST",
+            url : "/posts",
+            data: JSON.stringify({name : $('#name').val(), title : $('#title').val(), contents : $('#contents').val()}),
+            contentType : "application/json",
+
+            success : function (response){
+                alert("저장성공");
+                window.location.href ="/";
+            }
+        })
+    }</script>
+</head>
+<body>
+<h1>글 작성 페이지</h1>
+<button onclick=`${window.location.href='/'}`>홈으로</button>
+<br>
+제목
+<input type="text" id="title" name = "title">
+<hr>
+이름
+<input type="text" id="name" name = "name">
+<hr>
+글 내용
+<textarea name="contents" id="contents" cols="30" rows="10"></textarea>
+<hr>
+<button onclick="createPost()">제출</button>
+</body>
+</html>
