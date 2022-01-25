@@ -26,3 +26,5 @@ function post(id){
             window.location.href =`/posts/${id}`;
 }
 
+
+

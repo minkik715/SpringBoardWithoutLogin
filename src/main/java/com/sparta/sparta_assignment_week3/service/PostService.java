@@ -7,6 +7,7 @@ import com.sparta.sparta_assignment_week3.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,11 +41,21 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("글이 존재하지 않아요!")
         );
-        System.out.println("name"+post.getName());
-        System.out.println("title"+post.getTitle());
         PostResponseDto postResponseDto = new PostResponseDto(post);
         return postResponseDto;
     }
 
 
+    public void delete(Long id) {
+        postRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Post updatePost(Long id, PostRequestDto postRequestDto) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("글이 존재하지 않아요!")
+        );
+        post.update(postRequestDto);
+        return post;
+    }
 }

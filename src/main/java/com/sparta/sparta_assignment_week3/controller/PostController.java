@@ -38,7 +38,7 @@ public class PostController {
 
         PostResponseDto post = postService.getPost(id);
         String time = post.getTime().toString();
-
+        model.addAttribute("id",post.getId());
         model.addAttribute("title" , post.getTitle());
         model.addAttribute("name", post.getName());
         model.addAttribute("time", time.substring(0, 19));
@@ -52,6 +52,26 @@ public class PostController {
         return "createPost";
     }
 
+    @ResponseBody
+    @DeleteMapping("/posts/{id}")
+    public Long deletePost(@PathVariable Long id){
+        postService.delete(id);
+
+        return id;
+    }
+
+    @GetMapping("/posts/update/{id}")
+    public String updatePostpage(@PathVariable Long id, Model model){
+        PostResponseDto post = postService.getPost(id);
+        model.addAttribute("info", post);
+        return "updatePage";
+    }
+
+    @ResponseBody
+    @PutMapping("/posts/{id}")
+    public Post update(@PathVariable Long id,@RequestBody PostRequestDto postRequestDto){
+        return postService.updatePost(id, postRequestDto);
+    }
 
 
 }

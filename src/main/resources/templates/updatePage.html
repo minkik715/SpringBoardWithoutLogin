@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- > js파일이 적용이 안되서 여기다가 적음 <-->
+    <script>function updatePost(id){
+        $.ajax({
+            type : "PUT",
+            url : `/posts/${id}`,
+            data: JSON.stringify({name : $('#name').val(), title : $('#title').val(), contents : $('#contents').val()}),
+            contentType : "application/json",
+
+            success : function (response){
+                alert("수정성공");
+                window.location.href ="/";
+            }
+        })
+    }</script>
+</head>
+<body>
+<h1>글 수정 페이지</h1>
+<button onclick=`${window.location.href='/'}`>홈으로</button>
+<br>
+제목
+<input type="text" id="title" name = "title" th:value="${info.title}">
+<hr>
+이름
+<input type="text" id="name" name = "name" th:value="${info.name}">
+<hr>
+글 내용
+<textarea name="contents" id="contents" cols="30" rows="10" th:text="${info.name}"></textarea>
+<hr>
+<button th:onclick="|javascript:updatePost(${info.id})|">제출</button>
+</body>
+</html>

@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="home.js"></script>
+    <script>
+        function delete2(id) {
+            $.ajax({
+                type: "DELETE",
+                url: `/posts/${id}`,
+                success: function (response) {
+                    alert("삭제완료");
+                    window.location.href = "/";
+                }
+
+            })
+        }
+        function update(id){
+            $.ajax({
+                type: "GET",
+                url: `/posts/update/${id}`,
+                success : function (response){
+                    window.location.href=`/posts/update/${id}`;
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <h1>특정 게시글 조회 페이지</h1>
 <button onclick=`${window.location.href='/'}`>홈으로</button>
+<button th:onclick="|javascript:delete2(${id})|">삭제하기</button>
+<button th:onclick="|javascript:update(${id})|">수정하기</button>
 <div th:text="|제목: ${title}    작성자 :${name}    날짜:${time}|"></div>
 <div th:text="|내용: ${contents}|"></div>
 </body>
